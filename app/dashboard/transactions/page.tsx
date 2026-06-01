@@ -244,11 +244,11 @@ export default function TransactionsPage() {
                         </td>
                         <td className="py-3 px-4 text-right">
                           <div className="flex gap-2 justify-end">
-                            <Link href={`/dashboard/transactions/${transaction.id}/edit`}>
+                            {/* <Link href={`/dashboard/transactions/${transaction.id}/edit`}>
                               <Button variant="ghost" size="icon" className="text-foreground hover:bg-secondary">
                                 <Edit2 className="w-4 h-4" />
                               </Button>
-                            </Link>
+                            </Link> */}
                             <Button
                               variant="ghost"
                               size="icon"

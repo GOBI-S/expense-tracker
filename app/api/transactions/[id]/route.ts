@@ -4,22 +4,19 @@ import Transaction from "@/lib/models/Transaction";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
-    const transaction =
-      await Transaction.findById(params.id);
+    const { id } = await params;
+
+    const transaction = await Transaction.findById(id);
 
     if (!transaction) {
       return NextResponse.json(
-        {
-          message: "Transaction not found",
-        },
-        {
-          status: 404,
-        }
+        { message: "Transaction not found" },
+        { status: 404 }
       );
     }
 
@@ -37,44 +34,34 @@ export async function GET(
     console.error(error);
 
     return NextResponse.json(
-      {
-        message: "Failed to fetch transaction",
-      },
-      {
-        status: 500,
-      }
+      { message: "Failed to fetch transaction" },
+      { status: 500 }
     );
   }
 }
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
+    const { id } = await params;
     const body = await req.json();
 
-    const transaction =
-      await Transaction.findByIdAndUpdate(
-        params.id,
-        {
-          ...body,
-        },
-        {
-          new: true,
-        }
-      );
+    const transaction = await Transaction.findByIdAndUpdate(
+      id,
+      body,
+      {
+        new: true,
+      }
+    );
 
     if (!transaction) {
       return NextResponse.json(
-        {
-          message: "Transaction not found",
-        },
-        {
-          status: 404,
-        }
+        { message: "Transaction not found" },
+        { status: 404 }
       );
     }
 
@@ -92,36 +79,27 @@ export async function PUT(
     console.error(error);
 
     return NextResponse.json(
-      {
-        message: "Update failed",
-      },
-      {
-        status: 500,
-      }
+      { message: "Update failed" },
+      { status: 500 }
     );
   }
 }
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
-    const transaction =
-      await Transaction.findByIdAndDelete(
-        params.id
-      );
+    const { id } = await params;
+
+    const transaction = await Transaction.findByIdAndDelete(id);
 
     if (!transaction) {
       return NextResponse.json(
-        {
-          message: "Transaction not found",
-        },
-        {
-          status: 404,
-        }
+        { message: "Transaction not found" },
+        { status: 404 }
       );
     }
 
@@ -132,12 +110,8 @@ export async function DELETE(
     console.error(error);
 
     return NextResponse.json(
-      {
-        message: "Delete failed",
-      },
-      {
-        status: 500,
-      }
+      { message: "Delete failed" },
+      { status: 500 }
     );
   }
 }
