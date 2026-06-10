@@ -27,9 +27,7 @@ export function Navigation({ user, onLogout }: NavigationProps) {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/dashboard" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center group-hover:bg-primary/90 transition-colors">
-              {/* <Wallet className="w-5 h-5 text-primary-foreground" /> */}
-            </div>
+            
             <span className="font-bold text-lg text-foreground hidden sm:inline">Smart Expense Tracker</span>
           </Link>
 
